@@ -46,18 +46,18 @@ body {
 }
 
 .price {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 600;
-    color: #6366f1;
+    color: #203a43;
 }
 
 .btn-custom {
-    background: linear-gradient(45deg, #005f73, #ee6c4d);
+    background: linear-gradient(to right, #203a43, #2c5364);
     border: none;
     transition: all 0.3s ease;
 }
 
     .btn-custom:hover {
         transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
+        box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4)
     }
