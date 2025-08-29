@@ -11,50 +11,59 @@ namespace dive_deep.Persistence
                 Brand = "Scubapro",
                 Name = "Navigator Lite BCD",
                 PricePerDay = 125,
-
-
+                CategoryType = Category.BCD
             },
-
             new Product
             {
                 Brand = "Scubapro",
                 Name = "BCD Glide",
                 PricePerDay = 100,
+                CategoryType = Category.BCD
             },
             new Product
             {
                 Brand = "Scubapro",
                 Name = " Definition",
                 PricePerDay = 100,
+                CategoryType = Category.Wetsuit
             },
             new Product
             {
                 Brand = "Scubapro",
                 Name = "5 liter tank",
                 PricePerDay = 150,
+                CategoryType = Category.Tank
             },
             new Product
             {
                 Brand = "Subapro",
                 Name = "MK25EVO",
                 PricePerDay = 125,
+                CategoryType = Category.Regulator
             },
             new Product
             {
                 Brand = "Scubapro",
                 Name = "Ghost",
                 PricePerDay = 50,
+                CategoryType = Category.Wetsuit
             },
             new Product
             {
                 Brand = "Seac",
                 Name = "ALA",
-                PricePerDay = 50
+                PricePerDay = 50,
+                CategoryType = Category.Fins
             }
         };
-        public static List<Product> GetAllProducts()
+        public static IEnumerable<Product> GetAllProducts()
         {
             return products;
+        }
+
+        public static IEnumerable<Product> GetProductsByCategory(int id)
+        {
+            return products.Where(p => p.CategoryType == (Category)id);
         }
     }
 }
