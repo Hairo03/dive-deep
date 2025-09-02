@@ -13,31 +13,83 @@
     </div>
 </section>
 
-<section class="mission">
-    <h2>Produkter</h2>
-    <div class="mission-grid">
-        <div class="mission-box">
+<section class="categories">
+    <h2>Kategorier </h2>
+
+    <div class="category-grid">
+        <div class="category-box">
+            <img src="~/pictures/BCD.jpg" alt="BCD'er" />
             <h3>BCD'er</h3>
         </div>
-        <div class="mission-box">
-            
+        <div class="category-box">
+            <img src="~/pictures/Dykkerdragt.jpg" alt="Dykkerdragter" />
             <h3>Dykkerdragter</h3>
         </div>
-        <div class="mission-box">
-            
+        <div class="category-box">
+            <img src="~/pictures/scuba tank.jpg" alt="Tanke" />
             <h3>Tanke</h3>
         </div>
-        <div class="mission-box">
-            
+        <div class="category-box">
+            <img src="~/pictures/Regulator.jpg" alt="Regulatorsæt" />
             <h3>Regulatorsæt</h3>
         </div>
-        <div class="mission-box">
-            
+        <div class="category-box">
+            <img src="~/pictures/Maske.jpg" alt="Maske/Snorkel" />
             <h3>Maske/Snorkel</h3>
-       </div>
-        <div class="mission-box">
-            
+        </div>
+        <div class="category-box">
+            <img src="~/pictures/finner.jpg" alt="Finner" />
             <h3>Finner</h3>
         </div>
     </div>
 </section>
+
+<style>
+    .categories {
+        text-align: center;
+        padding: 50px 20px;
+        background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+    }
+
+        .categories h2 {
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 30px;
+        }
+
+    .category-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        max-width: 1000px; 
+        margin: 0 auto; 
+    
+    }
+
+    .category-box {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+        padding: 15px;
+    }
+
+        .category-box img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .category-box h3 {
+            margin-top: 15px;
+            font-size: 1.2rem;
+            color: #003366;
+        }
+
+        .category-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+        }
+</style>
