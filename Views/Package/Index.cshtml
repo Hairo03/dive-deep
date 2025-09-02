@@ -1,0 +1,45 @@
+﻿@using dive_deep.Models
+@model IEnumerable<Package>
+
+<div class="bg-light p-5 m-0">
+    <div class="d-flex flex-wrap justify-content-center">
+        @foreach (Package p in Model)
+        {
+            <div class="product-card bg-white rounded-3 shadow-sm h-100 position-relative m-2" style="width: 20rem;">
+                <div class="overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1669937401489-fb1ebb31d762?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwxNXx8aGVhZHBob25lfGVufDB8MHx8fDE3MzA1NTUzNjl8MA&ixlib=rb-4.0.3&q=80&w=1080" class="product-image w-100" alt="Product">
+                </div>
+                <div class="p-4">
+                    <h5 class="fw-bold mb-3">@p.Name</h5>
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="me-2">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star-half-alt text-warning"></i>
+                        </div>
+                        <small class="text-muted">(4.5/5)</small>
+                    </div>
+                    <p class="text-muted mb-4">
+                        <p>Included Products:</p>
+                        <ul>
+                            @foreach(Product product in p.Products)
+                            {
+                                <li>@product.Name - @product.CategoryType</li>
+                            }
+                        </ul>
+                    </p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="price">@p.PricePerDay.ToString() DKK pr. Dag</span>
+                        <button class="btn btn-custom text-white px-4 py-2 rounded-pill">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/js/all.min.js"></script>
+    </div>
+</div>
