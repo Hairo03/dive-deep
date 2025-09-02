@@ -10,9 +10,10 @@ namespace dive_deep.Models
         Fins,
         Mask,
         Snorkel,
-        DiveComputer,
+		Tank,
+		DiveComputer,
         Accessories,
-        Tank
+        
     }
     public class Product
     {
