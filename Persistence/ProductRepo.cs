@@ -55,6 +55,9 @@ namespace dive_deep.Persistence
                 PricePerDay = 50,
                 CategoryType = Category.Fins
             }
+
+           
+
         };
         public static IEnumerable<Product> GetAllProducts()
         {
@@ -64,6 +67,20 @@ namespace dive_deep.Persistence
         public static IEnumerable<Product> GetProductsByCategory(int id)
         {
             return products.Where(p => p.CategoryType == (Category)id);
+        }
+
+        public static Product GetProductById(int id)
+        {
+            Product product;
+            foreach(Product p in products)
+            {
+                if(p.Id == id)
+                {
+                    product = p;
+                    return product;
+                }
+            }
+            return null;
         }
     }
 }
