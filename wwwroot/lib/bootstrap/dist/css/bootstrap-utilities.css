@@ -1512,6 +1512,9 @@
 .rounded-3 {
   border-radius: 0.3rem !important;
 }
+.rounded-5{
+  border-radius: 0.4rem !important;
+}
 
 .rounded-circle {
   border-radius: 50% !important;
