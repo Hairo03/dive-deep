@@ -7,4 +7,8 @@
     <RootNamespace>dive_deep</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\pictures\hero.jpg" />
+  </ItemGroup>
+
 </Project>
