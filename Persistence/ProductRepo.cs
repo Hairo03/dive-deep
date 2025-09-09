@@ -54,8 +54,23 @@ namespace dive_deep.Persistence
                 Name = "ALA",
                 PricePerDay = 50,
                 CategoryType = Category.Fins
-            }
-        };
+            },
+            new Product
+			{
+				Brand = "Cressi",
+				Name = "F1",
+				PricePerDay = 50,
+				CategoryType = Category.Mask
+			},
+			new Product
+			{
+				Brand = "Cressi",
+				Name = "Snorkel",
+				PricePerDay = 25,
+				CategoryType = Category.Snorkel
+			}
+
+		};
         public static IEnumerable<Product> GetAllProducts()
         {
             return products;
@@ -64,6 +79,20 @@ namespace dive_deep.Persistence
         public static IEnumerable<Product> GetProductsByCategory(int id)
         {
             return products.Where(p => p.CategoryType == (Category)id);
+        }
+
+        public static Product GetProductById(int id)
+        {
+            Product product;
+            foreach(Product p in products)
+            {
+                if(p.Id == id)
+                {
+                    product = p;
+                    return product;
+                }
+            }
+            return null;
         }
     }
 }
