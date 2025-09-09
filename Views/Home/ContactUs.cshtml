@@ -1,8 +1,44 @@
 ﻿@{
-    ViewData["Title"] = "Contact";
+    ViewData["Title"] = "Kontakt: ";
 }
-<h1>@ViewData["Title"]</h1>
+<h1 class="text-center my-4">@ViewData["Title"]</h1>
 
-<h2>SUCUK</h2>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card shadow-lg border-0 rounded-3 mb-4">
+                <div class="card-body">
+                    <h5 class="card-title mb-3 text-primary fw-bold">Kontaktinformation</h5>
+                    <p>
+                        <i class="bi bi-geo-alt-fill text-danger"></i>
+                        <span class="fw-bolder">Adresse:</span> Dykkervej 10, 5000 Odense C
+                    </p>
+                    <p>
+                        <i class="bi bi-briefcase-fill text-secondary"></i>
+                        <span class="fw-bolder">CVR-nummer:</span> 81828384
+                    </p>
+                </div>
+            </div>
 
-<img src="https://media.gettyimages.com/id/154946197/photo/sausage-sucuk.jpg?s=2048x2048&w=gi&k=20&c=UVYfuzXOOkJa44uCMHft1v7dXx_1Pw_n4dKJShU5zB8=" alt="SUCUK" />
+            <div class="card shadow-lg border-0 rounded-3">
+                <div class="card-body">
+                    <h5 class="card-title mb-3 text-success fw-bold">Åbningstider</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span class="fw-bolder">Mandag - Fredag</span>
+                            <span>10:00 - 17:00</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span class="fw-bolder">Lørdag</span>
+                            <span>10:00 - 14:00</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between">
+                            <span class="fw-bolder">Søndag</span>
+                            <span class="text-danger">Lukket</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
