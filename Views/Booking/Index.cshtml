@@ -1,0 +1,12 @@
+﻿@model Booking
+<form asp-controller="booking" asp-action="index" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <h1>@Model.Product.Name</h1>
+
+    <label asp-for="StartDate"/>
+    <input type="datetime-local"/>
+    <label asp-for="EndDate" />
+    <input type="datetime-local"/>
+    <button type="submit">Go to checkout</button>
+</form>
