@@ -28,6 +28,7 @@ namespace dive_deep.Controllers
                         p.CategoryType.ToString().ToLower().Contains(searchTerm) 
                     )
                     .ToList();
+
             }
 
             return View(products);
