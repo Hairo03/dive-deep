@@ -18,6 +18,15 @@ namespace dive_deep.Controllers
                 products = ProductRepo.SearchProducts(searchTerm);
             }
 
+            if (id.HasValue)
+            {
+                ViewBag.CategoryType = (Category)id.Value;
+            }
+            else
+            {
+                ViewBag.CategoryType = "Produkter";
+            }
+
             return View(products);
         }
     }
