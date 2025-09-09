@@ -56,21 +56,21 @@ namespace dive_deep.Persistence
                 CategoryType = Category.Fins
             },
             new Product
-			{
-				Brand = "Cressi",
-				Name = "F1",
-				PricePerDay = 50,
-				CategoryType = Category.Mask
-			},
-			new Product
-			{
-				Brand = "Cressi",
-				Name = "Snorkel",
-				PricePerDay = 25,
-				CategoryType = Category.Snorkel
-			}
+            {
+                Brand = "Cressi",
+                Name = "F1",
+                PricePerDay = 50,
+                CategoryType = Category.Mask
+            },
+            new Product
+            {
+                Brand = "Cressi",
+                Name = "Snorkel",
+                PricePerDay = 25,
+                CategoryType = Category.Snorkel
+            }
 
-		};
+        };
         public static IEnumerable<Product> GetAllProducts()
         {
             return products;
@@ -84,15 +84,32 @@ namespace dive_deep.Persistence
         public static Product GetProductById(int id)
         {
             Product product;
-            foreach(Product p in products)
+            foreach (Product p in products)
             {
-                if(p.Id == id)
+                if (p.Id == id)
                 {
                     product = p;
                     return product;
                 }
             }
             return null;
+        }
+
+        public static IEnumerable<Product> SearchProducts(string? searchTerm)
+        {
+            searchTerm = searchTerm.ToLower();
+
+            List<Product> filteredProducts = products
+                .Where(p =>
+                    (!string.IsNullOrEmpty(p.Name) && p.Name.ToLower().Contains(searchTerm)) ||
+                    (!string.IsNullOrEmpty(p.Brand) && p.Brand.ToLower().Contains(searchTerm)) ||
+                    (!string.IsNullOrEmpty(p.Size) && p.Size.ToLower().Contains(searchTerm)) ||
+                    (!string.IsNullOrEmpty(p.Thickness) && p.Thickness.ToLower().Contains(searchTerm)) ||
+                    (!string.IsNullOrEmpty(p.Gender) && p.Gender.ToLower().Contains(searchTerm)) ||
+                    p.CategoryType.ToString().ToLower().Contains(searchTerm)
+                )
+                .ToList();
+            return filteredProducts;
         }
     }
 }

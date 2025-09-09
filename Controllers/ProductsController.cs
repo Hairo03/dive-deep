@@ -15,19 +15,7 @@ namespace dive_deep.Controllers
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-
-                searchTerm = searchTerm.ToLower();
-
-                products = products
-                    .Where(p =>
-                        (!string.IsNullOrEmpty(p.Name) && p.Name.ToLower().Contains(searchTerm)) ||
-                        (!string.IsNullOrEmpty(p.Brand) && p.Brand.ToLower().Contains(searchTerm)) ||
-                        (!string.IsNullOrEmpty(p.Size) && p.Size.ToLower().Contains(searchTerm)) ||
-                        (!string.IsNullOrEmpty(p.Thickness) && p.Thickness.ToLower().Contains(searchTerm)) ||
-                        (!string.IsNullOrEmpty(p.Gender) && p.Gender.ToLower().Contains(searchTerm)) ||
-                        p.CategoryType.ToString().ToLower().Contains(searchTerm) 
-                    )
-                    .ToList();
+                products = ProductRepo.SearchProducts(searchTerm);
             }
 
             return View(products);
