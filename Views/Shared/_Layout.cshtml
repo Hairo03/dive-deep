@@ -60,10 +60,10 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-4">
                     <li class="nav-item">
-                        <a class="nav-link" href="/Products">Produkter</a>
+                        <a class="nav-link" asp-controller="products" asp-action="index">Produkter</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="package" asp-action="index">Sæt</a>
+                        <a class="nav-link" asp-controller="package" asp-action="index">Pakke løsninger</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-controller="home" asp-action="aboutus">Om os</a>
@@ -83,6 +83,14 @@
             </div>
         </div>
     </nav>
+    <div class="container mt-3">
+        <nav style="--bs-breadcrumb-divider: '>'; " aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+            </ol>
+        </nav>
+    </div>
 
     
     

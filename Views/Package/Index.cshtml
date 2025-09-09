@@ -1,6 +1,9 @@
 ﻿@using dive_deep.Models
 @model IEnumerable<Package>
 
+@{
+    ViewData["Title"] = "Dykker pakker";
+}
 <div class="bg-light p-5 m-0">
     <div class="d-flex flex-wrap justify-content-center">
         @foreach (Package p in Model)
