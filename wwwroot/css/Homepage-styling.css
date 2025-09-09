@@ -49,3 +49,16 @@
         transform: translateY(-2px);
         box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4)
     }
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+
+
+svg {
+    font-weight: bold;
+    max-width: 600px;
+    height: auto;
+}
