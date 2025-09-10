@@ -31,16 +31,87 @@
 		<a asp-controller="products" asp-action="index" class="btn btn-custom" style="margin-top: 20px; color:unset; padding: 10px 20px; font-size: 18px;">Shop Nu</a>
 	</div>
 </section>
-<section class="about">
-	<div class="about-text">
-		<h2>Hvem er vi?</h2>
-		<p>
-			Vi startede Dive Deep for at dele vores passion for havet.
-			Vores mål er at levere udstyr af høj kvalitet, så alle kan opleve magien under vandet –
-			fra nybegyndere til professionelle dykkere.
-		</p>
+<section class="popular-products py-5">
+	<div class="container text-center">
+		<h2 class="mb-4 fw-bold">Populære Produkter</h2>
+
+		<div id="popularProductsCarousel" class="carousel slide" data-bs-ride="carousel">
+			<div class="carousel-inner">
+
+				
+				<div class="carousel-item active">
+					<div class="d-flex justify-content-center gap-3">
+						<div class="card" style="width: 18rem;">
+							<img src="~/pictures/Divingplaceholder.jpg" class="card-img-top" alt="Navigator Lite BCD">
+							<div class="card-body">
+								<h5 class="card-title">Navigator Lite BCD</h5>
+								<p class="fw-bold">125 DKK pr. Dag</p>
+								<a href="/Cart/Add/1" class="btn btn-custom">Add to Cart</a>
+							</div>
+						</div>
+						<div class="card" style="width: 18rem;">
+							<img src="~/pictures/Divingplaceholder.jpg" class="card-img-top" alt="BCD Glide">
+							<div class="card-body">
+								<h5 class="card-title">BCD Glide</h5>
+								<p class="fw-bold">100 DKK pr. Dag</p>
+								<a href="/Cart/Add/2" class="btn btn-custom">Add to Cart</a>
+							</div>
+						</div>
+						<div class="card" style="width: 18rem;">
+							<img src="~/pictures/Divingplaceholder.jpg" class="card-img-top" alt="Definition">
+							<div class="card-body">
+								<h5 class="card-title">Definition</h5>
+								<p class="fw-bold">100 DKK pr. Dag</p>
+								<a href="/Cart/Add/3" class="btn btn-custom">Add to Cart</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				
+				<div class="carousel-item">
+					<div class="d-flex justify-content-center gap-3">
+						<div class="card" style="width: 18rem;">
+							<img src="~/pictures/Divingplaceholder.jpg" class="card-img-top" alt="Regulator">
+							<div class="card-body">
+								<h5 class="card-title">MK25 Regulator</h5>
+								<p class="fw-bold">150 DKK pr. Dag</p>
+								<a href="/Cart/Add/4" class="btn btn-custom">Add to Cart</a>
+							</div>
+						</div>
+						<div class="card" style="width: 18rem;">
+							<img src="~/pictures/Divingplaceholder.jpg" class="card-img-top" alt="Maske">
+							<div class="card-body">
+								<h5 class="card-title">Synergy Twin Mask</h5>
+								<p class="fw-bold">75 DKK pr. Dag</p>
+								<a href="/Cart/Add/5" class="btn btn-custom">Add to Cart</a>
+							</div>
+						</div>
+						<div class="card" style="width: 18rem;">
+							<img src="~/pictures/Divingplaceholder.jpg" class="card-img-top" alt="Finner">
+							<div class="card-body">
+								<h5 class="card-title">Seawing Nova Finner</h5>
+								<p class="fw-bold">90 DKK pr. Dag</p>
+								<a href="/Cart/Add/6" class="btn btn-custom">Add to Cart</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+			
+			<button class="carousel-control-prev" type="button" data-bs-target="#popularProductsCarousel" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon"></span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#popularProductsCarousel" data-bs-slide="next">
+				<span class="carousel-control-next-icon"></span>
+			</button>
+		</div>
 	</div>
 </section>
+
+
 
 <section class="categories">
 	<h2>Kategorier </h2>
@@ -132,4 +203,67 @@
 			transform: translateY(-5px);
 			box-shadow: 10px 15px 15px rgba(0,0,0,0.3);
 		}
+
+	.popular-products .card {
+		border: none;
+		border-radius: 20px;
+		box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+		margin-top: 2rem;
+		margin-bottom: 2rem;
+		
+		transition: transform 0.3s ease, box-shadow 0.3s ease;
+	}
+
+		.popular-products .card img {
+			border-top-left-radius: 20px;
+			border-top-right-radius: 20px;
+			object-fit: cover;
+			height: 200px; 
+		}
+
+		.popular-products .card:hover {
+			transform: translateY(-8px);
+			box-shadow: 0 12px 24px rgba(0,0,0,0.2);
+		}
+
+	.btn-custom {
+		background: linear-gradient(135deg, #005fa3, #003f73);
+		color: #fff;
+		border-radius: 30px;
+		padding: 8px 18px;
+		font-weight: 500;
+		transition: 0.3s;
+	}
+
+		.btn-custom:hover {
+			background: #002f54;
+			color: #fff;
+		}
+
+	.popular-products .carousel-item {
+		overflow: visible !important;
+	}
+
+	.popular-products .d-flex {
+		gap: 2rem !important;
+	}
+
+	.carousel-control-next-icon,
+	.carousel-control-prev-icon {
+		filter: invert(100%); 
+	}
+
+	.carousel-control-prev {
+		left: -50px; 
+	}
+
+	.carousel-control-next {
+		right: -50px; 
+	}
+
+	
+	
+	
+
+
 </style>
