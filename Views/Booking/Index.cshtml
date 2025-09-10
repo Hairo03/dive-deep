@@ -1,0 +1,177 @@
+﻿@model dive_deep.Models.Booking
+
+@{
+    var today = DateTime.Today.ToString("yyyy-MM-dd");
+
+    var startValue = Model?.StartDate.ToString("yyyy-MM-dd") ?? today;
+    var endValue = (Model != null && Model.EndDate != DateTime.MinValue)
+                   ? Model.EndDate.ToString("yyyy-MM-dd")
+                   : startValue;
+
+    var pricePerDay = Model?.PricePerDay != 0 ? Model.PricePerDay : (Model?.Product?.PricePerDay ?? 0);
+    var formattedPricePerDay = pricePerDay.ToString("0.00");
+}
+
+<div class="container my-4">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-10">
+
+            <div class="card shadow-sm">
+                <div class="row g-0">
+                   
+                    <div class="col-12 col-md-5 border-end">
+                        <div class="p-3">
+                            <div class="text-center mb-3">
+
+                            </div>
+
+                            <h4 class="mb-1">@Model?.Product?.Name</h4>
+                            <p class="text-muted mb-2">@Model?.Product?.Brand</p>
+
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div>
+                                    <small class="text-muted">Price / day</small>
+                                    <div class="h5 mb-0">@formattedPricePerDay</div>
+                                </div>
+
+                                <div class="text-end">
+                                    <small class="text-muted">Category</small>
+                                    <div>@(Model?.Product?.CategoryType.ToString() ?? "-")</div>
+                                </div>
+                            </div>
+
+                            <ul class="list-unstyled small mb-0">
+                                <li><strong>Size:</strong> @(Model?.Product?.Size ?? "-")</li>
+                                <li><strong>Thickness:</strong> @(Model?.Product?.Thickness ?? "-")</li>
+                                <li><strong>Gender:</strong> @(Model?.Product?.Gender ?? "-")</li>
+                            </ul>
+                        </div>
+                    </div>
+
+              
+                    <div class="col-12 col-md-7">
+                        <div class="p-4">
+                            <form asp-controller="Booking" asp-action="Index" method="post" class="row g-3">
+                                <input type="hidden" asp-for="Id" />
+                                <input type="hidden" id="PricePerDay" value="@pricePerDay" />
+
+                                <div class="col-12">
+                                    <small class="text-muted">Vælg start dato og slut dato</small>
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label">Start dato</label>
+                                    <input asp-for="StartDate"
+                                           id="StartDate"
+                                           type="date"
+                                           class="form-control"
+                                           min="@today"
+                                           value="@startValue" />
+                                </div>
+
+                                <div class="col-12 col-md-6">
+                                    <label class="form-label">Slut dato</label>
+                                    <input asp-for="EndDate"
+                                           id="EndDate"
+                                           type="date"
+                                           class="form-control"
+                                           min="@startValue"
+                                           value="@endValue" />
+                                </div>
+
+                                <div class="col-12">
+                                    <div class="d-flex justify-content-between align-items-center p-3 bg-light rounded">
+                                        <div>
+                                            <small class="text-muted">Antal dage</small>
+                                            <div id="Days" class="fw-bold fs-5">0</div>
+                                        </div>
+
+                                        <div class="text-end">
+                                            <small class="text-muted">Pris</small>
+                                            <div id="TotalPrice" class="fw-bold fs-5">@formattedPricePerDay</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-12 d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg">Tilføj til kurv</button>
+                                </div>
+
+                                <div class="col-12">
+                                    <!--Måske tilføje handelsbetingelser her???-->
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div> 
+            </div> 
+        </div>
+    </div>
+</div>
+
+<style>
+ 
+    .product-img {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+    }
+</style>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const startInput = document.getElementById("StartDate");
+            const endInput = document.getElementById("EndDate");
+            const daysSpan = document.getElementById("Days");
+            const totalSpan = document.getElementById("TotalPrice");
+            const pricePerDay = parseFloat(document.getElementById("PricePerDay").value) || 0;
+
+            function parseDateYMD(ymd) {
+                if (!ymd) return null;
+                const parts = ymd.split('-');
+                if (parts.length !== 3) return null;
+                return new Date(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
+            }
+
+            function daysBetweenUTC(start, end) {
+                const msPerDay = 24 * 60 * 60 * 1000;
+                const sUTC = Date.UTC(start.getFullYear(), start.getMonth(), start.getDate());
+                const eUTC = Date.UTC(end.getFullYear(), end.getMonth(), end.getDate());
+                return Math.floor((eUTC - sUTC) / msPerDay);
+            }
+
+            function computeAndRender() {
+                const start = parseDateYMD(startInput.value);
+                const end = parseDateYMD(endInput.value);
+
+                if (start && end && end < start) {
+                    endInput.value = startInput.value;
+                }
+
+                if (!start || !end) {
+                    daysSpan.textContent = '0';
+                    totalSpan.textContent = (0).toFixed(2);
+                    if (start) endInput.min = startInput.value;
+                    return;
+                }
+
+        
+                let diffDays = daysBetweenUTC(start, end);
+                if (diffDays < 1) diffDays = 1;
+
+                const total = diffDays * pricePerDay;
+
+                daysSpan.textContent = diffDays;
+                totalSpan.textContent = total.toFixed(2);
+
+                endInput.min = startInput.value;
+            }
+
+            startInput.addEventListener('change', computeAndRender);
+            endInput.addEventListener('change', computeAndRender);
+
+            computeAndRender();
+        });
+    </script>
+}
