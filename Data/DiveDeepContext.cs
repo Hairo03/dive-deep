@@ -47,7 +47,7 @@ namespace dive_deep.Data
                     Size = "L",
                     Thickness = "5mm",
                     Gender = "Unisex",
-                    CategoryType = Category.Wetsuit
+                    CategoryType = Category.Våddragt
                 },
                 new Product
                 {
@@ -80,7 +80,7 @@ namespace dive_deep.Data
                     Size = "M",
                     Thickness = "2mm",
                     Gender = "Unisex",
-                    CategoryType = Category.Wetsuit
+                    CategoryType = Category.Våddragt
                 },
                 new Product
                 {
@@ -91,7 +91,7 @@ namespace dive_deep.Data
                     Size = "M",
                     Thickness = "2mm",
                     Gender = "Unisex",
-                    CategoryType = Category.Fins
+                    CategoryType = Category.Finn
                 },
                 new Product
                 {
@@ -102,7 +102,7 @@ namespace dive_deep.Data
                     Size = "M",
                     Thickness = "2mm",
                     Gender = "Unisex",
-                    CategoryType = Category.Mask
+                    CategoryType = Category.Maske
                 },
                 new Product
                 {
