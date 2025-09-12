@@ -14,6 +14,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
 
+    <head>
+        <!-- Font Awesome -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
+              rel="stylesheet" />
+    </head>
 
 
     <style>
@@ -70,7 +75,7 @@
                         <a class="nav-link" asp-controller="package" asp-action="index">Pakke løsninger</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-controller="home" asp-action="contactus">Kontakt</a>
+                        <a class="nav-link" asp-controller="home" asp-action="contactus">Om os</a>
                     </li>
                 </ul>
 
@@ -90,14 +95,19 @@
             </div>
         </div>
     </nav>
-    <div class="container mt-3">
-        <nav style="--bs-breadcrumb-divider: '>'; " aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Start</a></li>
-                <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
-            </ol>
-        </nav>
-    </div>
+    @if (!(ViewContext.RouteData.Values["controller"]?.ToString() == "Home"
+    && ViewContext.RouteData.Values["action"]?.ToString() == "Index"))
+    {
+        <div class="container mt-3">
+            <nav style="--bs-breadcrumb-divider: '/'; " aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Start</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+                </ol>
+            </nav>
+        </div>
+    }
+
     
     
         @RenderBody()
@@ -112,7 +122,7 @@
             <!-- Dynamiske produkter kan komme her -->
             <!-- Knappen til bunden -->
             <div class="mt-auto">
-                <a asp-controller="Cart" asp-action="Index" class="btn btn-primary w-100">Fortsæt til kurv</a>
+                <a asp-controller="Cart" asp-action="Index" class="btn btn-primary w-100">Fortsæt til betaling</a>
             </div>
 
         </div>
@@ -123,4 +133,69 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     @await RenderSectionAsync("Scripts", required:false)
 </body>
+
+
+<!-- Footer -->
+<footer class="text-center text-lg-start footer-custom">
+    <!-- Section: Social media -->
+    <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+        <div class="me-5 d-none d-lg-block">
+            <span>Følg med på de sociale medier:</span>
+        </div>
+        <div class="social-icons">
+            <a href="#" class="me-4">
+                <i class="fa-brands fa-facebook-f"></i>
+            </a>
+            
+            <a href="#" class="me-4">
+                <i class="fa-brands fa-instagram"></i>
+            </a>
+            <a href="#" class="me-4">
+                <i class="fa-brands fa-linkedin"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Section: Links -->
+    <section>
+        <div class="container text-center text-md-start mt-5">
+            <div class="row mt-3">
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">
+                        <i class="fas fa-gem me-3"></i>Dive Deep
+                    </h6>
+                    <p>
+                        Dive Deep er din dedikerede dykkerwebshop med udstyr, tilbehør og inspiration til livet under overfladen. Vi brænder for at gøre dykning sikkert, sjovt og tilgængeligt for alle.
+                    </p>
+                </div>
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">Produkter</h6>
+                    <p><a asp-controller="products" class="text-reset">Alle produkter</a></p>
+                    <p><a asp-controller="package" class="text-reset">Pakker</a></p>
+                    <p><a asp-controller="products" asp-action="index" asp-route-id="0" class="text-reset">BCD</a></p>
+                    <p><a asp-controller="products" asp-action="index" asp-route-id="2" class="text-reset">Våddragt</a></p>
+                </div>
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">Links</h6>
+                    <p><a asp-controller="products" class="text-reset">Produkter</a></p>
+                    <p><a asp-controller="package" class="text-reset">Pakker</a></p>
+                    <p><a asp-controller="home" asp-action="contactus" class="text-reset">Om os</a></p>
+                </div>
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                    <h6 class="text-uppercase fw-bold mb-4">Kontakt</h6>
+                    <p><i class="fas fa-home me-3"></i> Danmarksgade 10, 5000 Odense C</p>
+                    <p><i class="fas fa-envelope me-3"></i> kontakt@divedeep.dk</p>
+                    <p><i class="fas fa-phone me-3"></i> +45 12 34 56 78</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Copyright -->
+    <div class="text-center p-4 copyright">
+        © 2025 Dive Deep – Alle rettigheder forbeholdes – CVR: 12345678
+    </div>
+</footer>
+
 </html>
+  
