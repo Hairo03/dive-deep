@@ -45,7 +45,13 @@ namespace dive_deep.Persistence
 
         public List<Product> GetProductsByCategory(int id)
         {
-            throw new NotImplementedException();
+          
+            var category = (Category)id;
+
+ 
+            return _context.Products
+                      .Where(p => p.CategoryType == category)
+                      .ToList();
         }
         public List<Product> SearchProducts(string? searchTerm)
         {
