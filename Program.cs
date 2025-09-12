@@ -1,3 +1,9 @@
+using dive_deep.Data;
+using dive_deep.Models;
+using dive_deep.Persistence;
+using Microsoft.EntityFrameworkCore;
+using System;
+
 namespace dive_deep
 {
     public class Program
@@ -9,7 +15,42 @@ namespace dive_deep
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddDbContext<DiveDeepContext>(options => { options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); });
+
+            builder.Services.AddScoped<IRepository<Product>, ProductRepo>();
+            builder.Services.AddScoped<IRepository<Package>, PackageRepo>();
+
             var app = builder.Build();
+
+             using (var scope = app.Services.CreateScope())
+            {
+                var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+                try
+                {
+                    var db = scope.ServiceProvider.GetRequiredService<DiveDeepContext>();
+
+                    // Optional: log pending migrations (helpful for debugging)
+                    var pending = db.Database.GetPendingMigrations().ToList();
+                    if (pending.Any())
+                    {
+                        logger.LogInformation("Applying {Count} pending migrations: {Migs}", pending.Count, string.Join(", ", pending));
+                    }
+                    else
+                    {
+                        logger.LogInformation("No pending migrations.");
+                    }
+
+                    // Apply any pending migrations and create DB if missing
+                    db.Database.MigrateAsync();
+                    logger.LogInformation("Database migrated/created successfully.");
+                }
+                catch (Exception ex)
+                {
+                    logger.LogError(ex, "Database migration failed on startup.");
+                    // Decide: rethrow to stop the app, or continue and surface a friendly error page.
+                    throw;
+                }
+            }
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
