@@ -1,17 +1,48 @@
-﻿using dive_deep.Models;
+﻿using dive_deep.Data;
+using dive_deep.Models;
 
 namespace dive_deep.Persistence
 {
-    public static class PackageRepo
+    public class PackageRepo : IRepository<Package>
     {
-        private static List<Package> packages = new List<Package>()
+        private readonly DiveDeepContext _context;
+        public PackageRepo(DiveDeepContext context)
         {
-            new Package() { Name = "Komplet Dykkersæt", PricePerDay = 900, Products = new List<Product>() {ProductRepo.GetProductById(0),ProductRepo.GetProductById(1)} },
-            new Package() { Name = "Snorkelsæt", PricePerDay = 300, Products = new List<Product>() { ProductRepo.GetProductById(2), ProductRepo.GetProductById(3) } }
-        };
-        public static IEnumerable<Package> GetAllPackages()
+            _context = context;
+        }
+        public void Add(Package entity)
         {
-            return packages;
+            
+        }
+
+        public void Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Package> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Package? GetById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Update(Package entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Package> GetProductsByCategory(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Package> SearchProducts(string? searchTerm)
+        {
+            throw new NotImplementedException();
         }
     }
 }
