@@ -2,12 +2,13 @@
 
 namespace dive_deep.Persistence
 {
-    public static class ProductRepo
+    public class ProductRepo : IProductRepo
     {
-        private static List<Product> products = new List<Product>()
+        private List<Product> products = new List<Product>()
         {
             new Product
             {
+                Id = 0,
                 Brand = "Scubapro",
                 Name = "Navigator Lite BCD",
                 PricePerDay = 125,
@@ -15,6 +16,7 @@ namespace dive_deep.Persistence
             },
             new Product
             {
+                Id = 1,
                 Brand = "Scubapro",
                 Name = "BCD Glide",
                 PricePerDay = 100,
@@ -22,6 +24,7 @@ namespace dive_deep.Persistence
             },
             new Product
             {
+                Id = 2,
                 Brand = "Scubapro",
                 Name = " Definition",
                 PricePerDay = 100,
@@ -29,6 +32,7 @@ namespace dive_deep.Persistence
             },
             new Product
             {
+                Id = 3,
                 Brand = "Scubapro",
                 Name = "5 liter tank",
                 PricePerDay = 150,
@@ -36,6 +40,7 @@ namespace dive_deep.Persistence
             },
             new Product
             {
+                Id = 4,
                 Brand = "Subapro",
                 Name = "MK25EVO",
                 PricePerDay = 125,
@@ -43,6 +48,7 @@ namespace dive_deep.Persistence
             },
             new Product
             {
+                Id = 5,
                 Brand = "Scubapro",
                 Name = "Ghost",
                 PricePerDay = 50,
@@ -50,6 +56,7 @@ namespace dive_deep.Persistence
             },
             new Product
             {
+                Id = 6,
                 Brand = "Seac",
                 Name = "ALA",
                 PricePerDay = 50,
@@ -57,6 +64,7 @@ namespace dive_deep.Persistence
             },
             new Product
             {
+                Id = 7,
                 Brand = "Cressi",
                 Name = "F1",
                 PricePerDay = 50,
@@ -64,6 +72,7 @@ namespace dive_deep.Persistence
             },
             new Product
             {
+                Id = 8,
                 Brand = "Cressi",
                 Name = "Snorkel",
                 PricePerDay = 25,
@@ -71,17 +80,17 @@ namespace dive_deep.Persistence
             }
 
         };
-        public static IEnumerable<Product> GetAllProducts()
+        public IEnumerable<Product> GetAllProducts()
         {
             return products;
         }
 
-        public static IEnumerable<Product> GetProductsByCategory(int id)
+        public IEnumerable<Product> GetProductsByCategory(int id)
         {
             return products.Where(p => p.CategoryType == (Category)id);
         }
 
-        public static Product GetProductById(int id)
+        public Product GetProductById(int id)
         {
             Product product;
             foreach (Product p in products)
@@ -95,7 +104,7 @@ namespace dive_deep.Persistence
             return null;
         }
 
-        public static IEnumerable<Product> SearchProducts(string? searchTerm)
+        public IEnumerable<Product> SearchProducts(string? searchTerm)
         {
             searchTerm = searchTerm.ToLower();
 

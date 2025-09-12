@@ -1,3 +1,5 @@
+using dive_deep.Persistence;
+
 namespace dive_deep
 {
     public class Program
@@ -8,6 +10,7 @@ namespace dive_deep
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddScoped<IProductRepo, ProductRepo>();
 
             var app = builder.Build();
 

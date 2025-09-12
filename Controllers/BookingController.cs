@@ -6,9 +6,14 @@ namespace dive_deep.Controllers
 {
     public class BookingController : Controller
     {
+        private readonly IProductRepo productRepo;
+        public BookingController(IProductRepo productRepo)
+        {
+            this.productRepo = productRepo;
+        }
         public IActionResult Index(int? id)
         {
-            Booking booking = new Booking() { Product = ProductRepo.GetProductById(id.HasValue ? id.Value : 0) };
+            Booking booking = new Booking() { Product = productRepo.GetProductById(id.HasValue ? id.Value : 0) };
             return View(booking);
         }
 

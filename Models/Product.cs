@@ -17,8 +17,6 @@ namespace dive_deep.Models
     }
     public class Product
     {
-        public static int Increment;
-
         public int Id { get; set; }
         public string Name { get; set; }
         public double PricePerDay { get; set; }
@@ -27,11 +25,5 @@ namespace dive_deep.Models
         public string Thickness { get; set; }
         public string Gender { get; set; }
         public Category CategoryType { get; set; }
-
-        public Product()
-        {
-            Id = Increment;
-            Increment++;
-        }
     }
 }
