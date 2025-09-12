@@ -85,3 +85,34 @@ body {
         border: none;
         padding: 10px 20px;
     }
+.footer-custom {
+    background: linear-gradient(to right, #203a43, #2c5364); /* Samme som knap */
+    color: #ffffff;
+}
+
+    .footer-custom a {
+        color: #fffff; /* Lys blå til links */
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+        .footer-custom a:hover {
+            color: #00ffff; /* Turkis ved hover */
+        }
+
+    .footer-custom .social-icons i {
+        color: #ffffff;
+        font-size: 20px;
+        transition: color 0.3s ease;
+    }
+
+        .footer-custom .social-icons i:hover {
+            color: #00ffff;
+        }
+
+    .footer-custom .copyright {
+        background-color: rgba(0, 0, 0, 0.2);
+        color: #ffffff;
+    }
+
+
