@@ -13,7 +13,7 @@ namespace dive_deep.Persistence
         }
         public void Add(Product entity)
         {
-            _context.Add(entity);
+            _context.Products.Add(entity);
             _context.SaveChanges();
         }
 
@@ -47,7 +47,6 @@ namespace dive_deep.Persistence
         {
           
             var category = (Category)id;
-
  
             return _context.Products
                       .Where(p => p.CategoryType == category)

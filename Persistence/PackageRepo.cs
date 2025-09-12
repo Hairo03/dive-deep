@@ -1,5 +1,6 @@
 ﻿using dive_deep.Data;
 using dive_deep.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace dive_deep.Persistence
 {
@@ -12,27 +13,34 @@ namespace dive_deep.Persistence
         }
         public void Add(Package entity)
         {
-            
+            _context.Packages.Add(entity);
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            var package = GetById(id);
+            if (package is null) return;
+            _context.Packages.Remove(package);
+            _context.SaveChanges();
         }
 
         public List<Package> GetAll()
         {
-            throw new NotImplementedException();
+            return _context.Packages.AsNoTracking().Include(p => p.products).ToList();
         }
 
         public Package? GetById(int id)
         {
-            throw new NotImplementedException();
+            return _context.Packages.AsNoTracking()
+                .Include(p => p.products)
+                .FirstOrDefault(p => p.Id == id);
         }
 
         public void Update(Package entity)
         {
-            throw new NotImplementedException();
+            _context.Packages.Update(entity);
+            _context.SaveChanges();
         }
 
         public List<Package> GetProductsByCategory(int id)
