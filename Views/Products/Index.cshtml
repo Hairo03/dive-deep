@@ -5,20 +5,19 @@
 @{
     ViewData["Title"] = "Produkter";
 }
-<div class="container">
-    <div class="search-bar">
-        <form method="get" asp-controller="Products" asp-action="Index" class="input-group">
+
+<div class="container py-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+        <h2 class="fw-bold m-0">@ViewBag.CategoryType</h2>
+        <form method="get" asp-controller="Products" asp-action="Index" class="input-group" style="max-width: 300px;">
             <input type="hidden" name="id" value="@Context.Request.Query["id"]" />
             <input type="text" name="searchTerm" class="form-control"
-                   placeholder="Search..."
+                   placeholder="Søg efter produkter..."
                    value="@Context.Request.Query["searchTerm"]" />
             <button type="submit" class="btn btn-outline-secondary">
                 <i class="fas fa-search"></i>
             </button>
         </form>
-    </div>
-    <div>
-        <h2 class="m-3 fw-bold">@ViewBag.CategoryType</h2>
     </div>
 </div>
 
@@ -28,7 +27,8 @@
         {
             <div class="product-card bg-white rounded-3 shadow-sm h-100 position-relative m-2" style="width: 20rem;">
                 <div class="overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1669937401489-fb1ebb31d762?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwxNXx8aGVhZHBob25lfGVufDB8MHx8fDE3MzA1NTUzNjl8MA&ixlib=rb-4.0.3&q=80&w=1080" class="product-image w-100" alt="Product">
+                    <img src="https://images.unsplash.com/photo-1669937401489-fb1ebb31d762?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwxNXx8aGVhZHBob25lfGVufDB8MHx8fDE3MzA1NTUzNjl8MA&ixlib=rb-4.0.3&q=80&w=1080"
+                         class="product-image w-100" alt="Product">
                 </div>
                 <div class="p-4">
                     <h5 class="fw-bold mb-3">@product.Name</h5>
@@ -47,8 +47,8 @@
                     </p>
                     <div class="d-flex justify-content-between align-items-center">
                         <span class="price">@product.PricePerDay.ToString() DKK pr. Dag</span>
-                        <a class="btn btn-custom text-white px-4 py-2 rounded-pill" asp-controller="booking" asp-action="index" asp-route-id="@product.Id">
-                      
+                        <a class="btn btn-custom text-white px-4 py-2 rounded-pill"
+                           asp-controller="booking" asp-action="index" asp-route-id="@product.Id">
                             Tilføj til kurv
                         </a>
                     </div>
