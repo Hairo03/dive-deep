@@ -1,52 +1,153 @@
 ﻿@{
-    ViewData["Title"] = "Kontakt";
+    ViewData["Title"] = "Om os";
 }
-<h1 class="text-center my-4">@ViewData["Title"]</h1>
 
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-lg-6">
-            <div class="card shadow-lg border-0 rounded-3 mb-4">
-                <div class="card-body">
-                    <h5 class="card-title mb-3 text-primary fw-bold">Kontaktinformation</h5>
-                    <p>
-                        <i class="bi bi-geo-alt-fill text-danger"></i>
-                        <span class="fw-bolder">Adresse:</span> Dykkervej 10, 5000 Odense C
-                    </p>
-                                        <p>
-                        <i class="bi bi-phone-fill text-secondary"></i>
-                        <span class="fw-bolder">Telefonnummer:</span> +45 60708090
-                    </p>
-                    <p>
-                        <i class="bi bi-envelope-fill text-secondary"></i>
-                        <span class="fw-bolder">Email:</span> info@divedeep.dk
-                    </p>
-                    <p>
-                        <i class="bi bi-briefcase-fill text-secondary"></i>
-                        <span class="fw-bolder">CVR-nummer:</span> 81828384
-                    </p>
+
+
+
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <img src="~/pictures/Diveee.jpg" alt="Dykkere" class="img-fluid rounded-3 shadow-lg" />
+            </div>
+            <div class="col-lg-6">
+                <h2 class="fw-bold mb-3">Vores historie</h2>
+                <p class="lead">
+                    Hos Dive Deep er havet vores liv. Vi startede som en lille gruppe passionerede dykkere,
+                    men i dag leverer vi kvalitetsudstyr og lejeprodukter til både begyndere og erfarne.
+                </p>
+                <p>
+                    Vores mål er at gøre undervandsverdenen tilgængelig for alle – sikkert, komfortabelt
+                    og med udstyr du kan stole på.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="py-5">
+    <div class="container">
+        <div class="row text-center g-4">
+            <div class="col-md-4">
+                <div class="card value-card h-100 shadow-sm border-0 rounded-3">
+                    <div class="card-body">
+                        <i class="bi bi-heart-fill text-danger fs-1 mb-3"></i>
+                        <h4 class="fw-bold">Passion for havet</h4>
+                        <p>Vi lever og ånder for dykning og vil inspirere andre til at opleve magien under vandet.</p>
+                    </div>
                 </div>
             </div>
-
-            <div class="card shadow-lg border-0 rounded-3">
-                <div class="card-body">
-                    <h5 class="card-title mb-3 text-success fw-bold">Åbningstider</h5>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex justify-content-between">
-                            <span class="fw-bolder">Mandag - Fredag</span>
-                            <span>10:00 - 17:00</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between">
-                            <span class="fw-bolder">Lørdag</span>
-                            <span>10:00 - 14:00</span>
-                        </li>
-                        <li class="list-group-item d-flex justify-content-between">
-                            <span class="fw-bolder">Søndag</span>
-                            <span class="text-danger">Lukket</span>
-                        </li>
-                    </ul>
+            <div class="col-md-4">
+                <div class="card value-card h-100 shadow-sm border-0 rounded-3">
+                    <div class="card-body">
+                        <i class="bi bi-star-fill text-warning fs-1 mb-3"></i>
+                        <h4 class="fw-bold">Kvalitet & Tryghed</h4>
+                        <p>Alt vores udstyr er nøje udvalgt, så du kan dykke sikkert og komfortabelt hver gang.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card value-card h-100 shadow-sm border-0 rounded-3">
+                    <div class="card-body">
+                        <i class="bi bi-people-fill text-primary fs-1 mb-3"></i>
+                        <h4 class="fw-bold">Fællesskab</h4>
+                        <p>Hos Dive Deep er du ikke kun kunde – du er en del af et passioneret fællesskab.</p>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+
+<section class="py-5 bg-light">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-5">Mød teamet</h2>
+        <div class="row g-4 justify-content-center">
+                
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="~/pictures/Rasmus2.jpg" class="card-img-top team-img" alt="Instruktør 1">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Rasmus Hansen</h5>
+                        <p class="text-muted">Dykkerinstruktør & Grundlægger</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="~/pictures/Noah1.jpg" class="card-img-top team-img" alt="Instruktør 2">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Noah Hilt</h5>
+                        <p class="text-muted">Udstyrsekspert</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="~/pictures/Jonathan.jpg" class="card-img-top team-img" alt="Instruktør 3">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Jonathan Lacor</h5>
+                        <p class="text-muted">Lejeansvarlig & Dykker</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="~/pictures/Marcus1.jpg" class="card-img-top team-img" alt="Instruktør 3">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Marcus Kristensen</h5>
+                        <p class="text-muted">Kassemedarbejder</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <img src="~/pictures/Jacob1.jpg" class="card-img-top team-img" alt="Instruktør">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Jacob Mansour</h5>
+                        <p class="text-muted">Kørende Sælger</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="py-5 text-center" style="background-color: #f8f9fa;">
+    <div class="container">
+        <h3 class="fw-bold mb-3">Åbningstider</h3>
+        <p><i class="text-danger"></i> Mandag-Fredag: 10:00 - 17:00</p>
+        <p><i class="text-secondary"></i> Lørdag: 10:00 - 14:00</p>
+        <p><i class=" text-secondary"></i> Søndag: Lukket</p>
+    </div>
+</section>
+
+
+<style>
+    .team-img {
+        height: 200px; 
+        object-fit: cover; 
+        width: 100%; 
+    }
+
+    .value-card {
+        transition: all 0.3s ease-in-out;
+        cursor: pointer;
+    }
+
+        .value-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+            .value-card:hover i {
+                transform: scale(1.2);
+                transition: transform 0.3s ease-in-out;
+            }
+
+
+
+</style>
