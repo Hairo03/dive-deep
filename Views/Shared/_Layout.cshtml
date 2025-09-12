@@ -91,14 +91,19 @@
             </div>
         </div>
     </nav>
-    <div class="container mt-3">
-        <nav style="--bs-breadcrumb-divider: '>'; " aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="/">Start</a></li>
-                <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
-            </ol>
-        </nav>
-    </div>
+    @if (!(ViewContext.RouteData.Values["controller"]?.ToString() == "Home"
+    && ViewContext.RouteData.Values["action"]?.ToString() == "Index"))
+    {
+        <div class="container mt-3">
+            <nav style="--bs-breadcrumb-divider: '/'; " aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Start</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">@ViewData["Title"]</li>
+                </ol>
+            </nav>
+        </div>
+    }
+
     
     
         @RenderBody()
