@@ -6,13 +6,13 @@ namespace dive_deep.Models
     {
         BCD,
         Regulator,
-        Wetsuit,
-        Fins,
-        Mask,
+        Våddragt,
+        Finn,
+        Maske,
         Snorkel,
 		Tank,
-		DiveComputer,
-        Accessories,
+		DykkerComputer,
+        Tilbehør,
         
     }
     public class Product
