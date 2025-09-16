@@ -124,10 +124,10 @@ namespace dive_deep.Data
 
 
             modelBuilder.Entity<Package>()
-    .HasMany(p => p.products)       // keep exactly the property name you used in Package
-    .WithMany(p => p.packages)      // Product.Packages (must exist)
+    .HasMany(p => p.products)      
+    .WithMany(p => p.packages)    
     .UsingEntity<Dictionary<string, object>>(
-        "PackageProduct",          // join table name
+        "PackageProduct",      
         right => right
             .HasOne<Product>()
             .WithMany()
@@ -142,7 +142,7 @@ namespace dive_deep.Data
         {
             join.HasKey("PackageId", "ProductId");
 
-            // seed join rows - use the product ids defined above (1..9)
+    
             join.HasData(
                 new { PackageId = 1, ProductId = 1 },
                 new { PackageId = 1, ProductId = 2 },
