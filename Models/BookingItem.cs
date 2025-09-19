@@ -30,7 +30,9 @@ namespace dive_deep.Models
 
             var days = (EndDate.Date - StartDate.Date).Days;
 
-            TotalPrice = days * Product.PricePerDay;
+            if (days == 0) TotalPrice = Product.PricePerDay;
+            else TotalPrice = days * Product.PricePerDay;
+
 
             return TotalPrice;
         }
