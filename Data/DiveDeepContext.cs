@@ -126,7 +126,7 @@ namespace dive_deep.Data
                 new Package { Id = 2, Name = "Snorkelsæt", PricePerDay = 300 }
             );
 
-            modelBuilder.Entity<Booking>()
+            modelBuilder.Entity<BookingItem>()
                 .HasOne(b => b.User)
                 .WithMany(u => u.Bookings)
                 .HasForeignKey(b => b.UserId);

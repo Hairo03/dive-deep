@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
+using System.ComponentModel.DataAnnotations;
 
 namespace dive_deep.Models
 {
@@ -34,6 +36,13 @@ namespace dive_deep.Models
 
             return TotalPrice;
         }
+
+        [Required]
+        public string UserId { get; set; }
+
+        [BindNever]
+        [ValidateNever]
+        public ApplicationUser User { get; set; } = null!;
 
     }
 }

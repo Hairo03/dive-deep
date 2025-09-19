@@ -4,6 +4,6 @@ namespace dive_deep.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        public List<Booking>? Bookings { get; set; } = new List<Booking>();
+        public List<BookingItem>? Bookings { get; set; } = new List<BookingItem>();
     }
 }
