@@ -6,19 +6,17 @@ namespace dive_deep.Models
     {
         BCD,
         Regulator,
-        Wetsuit,
-        Fins,
-        Mask,
+        Våddragt,
+        Finn,
+        Maske,
         Snorkel,
 		Tank,
-		DiveComputer,
-        Accessories,
+		DykkerComputer,
+        Tilbehør,
         
     }
     public class Product
     {
-        public static int Increment;
-
         public int Id { get; set; }
         public string Name { get; set; }
         public double PricePerDay { get; set; }
@@ -28,10 +26,7 @@ namespace dive_deep.Models
         public string Gender { get; set; }
         public Category CategoryType { get; set; }
 
-        public Product()
-        {
-            Id = Increment;
-            Increment++;
-        }
+        public ICollection<Package> packages { get; set; } = new List<Package>();
+
     }
 }

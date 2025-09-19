@@ -1,17 +1,56 @@
-﻿using dive_deep.Models;
+﻿using dive_deep.Data;
+using dive_deep.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace dive_deep.Persistence
 {
-    public static class PackageRepo
+    public class PackageRepo : IRepository<Package>
     {
-        private static List<Package> packages = new List<Package>()
+        private readonly DiveDeepContext _context;
+        public PackageRepo(DiveDeepContext context)
         {
-            new Package() { Name = "Komplet Dykkersæt", PricePerDay = 900, Products = new List<Product>() {ProductRepo.GetProductById(0),ProductRepo.GetProductById(1)} },
-            new Package() { Name = "Snorkelsæt", PricePerDay = 300, Products = new List<Product>() { ProductRepo.GetProductById(2), ProductRepo.GetProductById(3) } }
-        };
-        public static IEnumerable<Package> GetAllPackages()
+            _context = context;
+        }
+        public void Add(Package entity)
         {
-            return packages;
+            _context.Packages.Add(entity);
+            _context.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            var package = GetById(id);
+            if (package is null) return;
+            _context.Packages.Remove(package);
+            _context.SaveChanges();
+        }
+
+        public List<Package> GetAll()
+        {
+            return _context.Packages.AsNoTracking().Include(p => p.products).ToList();
+        }
+
+        public Package? GetById(int id)
+        {
+            return _context.Packages.AsNoTracking()
+                .Include(p => p.products)
+                .FirstOrDefault(p => p.Id == id);
+        }
+
+        public void Update(Package entity)
+        {
+            _context.Packages.Update(entity);
+            _context.SaveChanges();
+        }
+
+        public List<Package> GetProductsByCategory(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Package> SearchProducts(string? searchTerm)
+        {
+            throw new NotImplementedException();
         }
     }
 }

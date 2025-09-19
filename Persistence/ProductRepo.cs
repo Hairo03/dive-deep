@@ -1,105 +1,62 @@
-﻿using dive_deep.Models;
+﻿using dive_deep.Data;
+using dive_deep.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace dive_deep.Persistence
 {
-    public static class ProductRepo
+    public class ProductRepo : IRepository<Product>
     {
-        private static List<Product> products = new List<Product>()
+        private readonly DiveDeepContext _context;
+        public ProductRepo(DiveDeepContext context)
         {
-            new Product
-            {
-                Brand = "Scubapro",
-                Name = "Navigator Lite BCD",
-                PricePerDay = 125,
-                CategoryType = Category.BCD
-            },
-            new Product
-            {
-                Brand = "Scubapro",
-                Name = "BCD Glide",
-                PricePerDay = 100,
-                CategoryType = Category.BCD
-            },
-            new Product
-            {
-                Brand = "Scubapro",
-                Name = " Definition",
-                PricePerDay = 100,
-                CategoryType = Category.Wetsuit
-            },
-            new Product
-            {
-                Brand = "Scubapro",
-                Name = "5 liter tank",
-                PricePerDay = 150,
-                CategoryType = Category.Tank
-            },
-            new Product
-            {
-                Brand = "Subapro",
-                Name = "MK25EVO",
-                PricePerDay = 125,
-                CategoryType = Category.Regulator
-            },
-            new Product
-            {
-                Brand = "Scubapro",
-                Name = "Ghost",
-                PricePerDay = 50,
-                CategoryType = Category.Wetsuit
-            },
-            new Product
-            {
-                Brand = "Seac",
-                Name = "ALA",
-                PricePerDay = 50,
-                CategoryType = Category.Fins
-            },
-            new Product
-            {
-                Brand = "Cressi",
-                Name = "F1",
-                PricePerDay = 50,
-                CategoryType = Category.Mask
-            },
-            new Product
-            {
-                Brand = "Cressi",
-                Name = "Snorkel",
-                PricePerDay = 25,
-                CategoryType = Category.Snorkel
-            }
-
-        };
-        public static IEnumerable<Product> GetAllProducts()
+            _context = context;
+        }
+        public void Add(Product entity)
         {
-            return products;
+            _context.Products.Add(entity);
+            _context.SaveChanges();
         }
 
-        public static IEnumerable<Product> GetProductsByCategory(int id)
+        public void Delete(int id)
         {
-            return products.Where(p => p.CategoryType == (Category)id);
+            var product = GetById(id);
+            if (product is null) return;
+            _context.Products.Remove(product);
+            _context.SaveChanges();
         }
 
-        public static Product GetProductById(int id)
+        public List<Product> GetAll()
         {
-            Product product;
-            foreach (Product p in products)
-            {
-                if (p.Id == id)
-                {
-                    product = p;
-                    return product;
-                }
-            }
-            return null;
+            return _context.Products.AsNoTracking().Include(p => p.packages).ToList();
         }
 
-        public static IEnumerable<Product> SearchProducts(string? searchTerm)
+        public Product? GetById(int id)
+        {
+            return _context.Products.AsNoTracking()
+                     .Include(p=>p.packages)
+                     .FirstOrDefault(p => p.Id == id);
+        }
+
+        public void Update(Product entity)
+        {
+            _context.Products.Update(entity);
+            _context.SaveChanges();
+        }
+
+        public List<Product> GetProductsByCategory(int id)
+        {
+          
+            var category = (Category)id;
+ 
+            return _context.Products
+                      .Where(p => p.CategoryType == category)
+                      .ToList();
+        }
+        public List<Product> SearchProducts(string? searchTerm)
         {
             searchTerm = searchTerm.ToLower();
 
-            List<Product> filteredProducts = products
+            List<Product> filteredProducts = _context.Products
                 .Where(p =>
                     (!string.IsNullOrEmpty(p.Name) && p.Name.ToLower().Contains(searchTerm)) ||
                     (!string.IsNullOrEmpty(p.Brand) && p.Brand.ToLower().Contains(searchTerm)) ||

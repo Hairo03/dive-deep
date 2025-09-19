@@ -1,4 +1,4 @@
-namespace dive_deep.Models
+namespace dive_deep.Views
 {
     public class ErrorViewModel
     {

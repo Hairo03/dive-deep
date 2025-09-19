@@ -7,15 +7,24 @@ namespace dive_deep.Controllers
 {
     public class ProductsController : Controller
     {
+        private readonly IRepository<Product> _productRepository;
+        private readonly IRepository<Package> _packageRepository;
+
+        public ProductsController(IRepository<Product> productRepository, IRepository<Package> packageRepository)
+        {
+            _productRepository = productRepository;
+            _packageRepository = packageRepository;
+           
+        }
         public IActionResult Index(int? id, string? searchTerm)
         {
             var products = id.HasValue
-                ? ProductRepo.GetProductsByCategory(id.Value)
-                : ProductRepo.GetAllProducts();
+                ? _productRepository.GetProductsByCategory(id.Value)
+                : _productRepository.GetAll();
 
             if (!string.IsNullOrWhiteSpace(searchTerm))
             {
-                products = ProductRepo.SearchProducts(searchTerm);
+                products = _productRepository.SearchProducts(searchTerm);
             }
 
             if (id.HasValue)
