@@ -6,10 +6,10 @@ namespace dive_deep.Controllers
 {
     public class PackageController : Controller
     {
-        private readonly IRepository<Product> _productRepository;
+        private readonly IProductRepository _productRepository;
         private readonly IRepository<Package> _packageRepository;
 
-        public PackageController(IRepository<Product> productRepository, IRepository<Package> packageRepository)
+        public PackageController(IProductRepository productRepository, IRepository<Package> packageRepository)
         {
             _productRepository = productRepository;
             _packageRepository = packageRepository;

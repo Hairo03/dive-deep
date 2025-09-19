@@ -17,8 +17,11 @@ namespace dive_deep
 
             builder.Services.AddDbContext<DiveDeepContext>(options => { options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); });
 
-            builder.Services.AddScoped<IRepository<Product>, ProductRepo>();
+            builder.Services.AddScoped<IProductRepository, ProductRepo>();
             builder.Services.AddScoped<IRepository<Package>, PackageRepo>();
+            builder.Services.AddScoped<IRepository<CartBooking>, CartBookingRepo>();
+            builder.Services.AddSingleton<IBookingItemRepository, InMemoryBookingItemRepo>();
+
 
             var app = builder.Build();
 

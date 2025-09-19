@@ -118,8 +118,7 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Luk"></button>
         </div>
         <div class="offcanvas-body d-flex flex-column">
-            <p>Her kommer dine valgte produkter.</p>
-            <!-- Dynamiske produkter kan komme her -->
+            @await Component.InvokeAsync("Cart")
             <!-- Knappen til bunden -->
             <div class="mt-auto">
                 <a asp-controller="Cart" asp-action="Index" class="btn btn-primary w-100">Fortsæt til betaling</a>

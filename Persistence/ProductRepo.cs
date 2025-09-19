@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace dive_deep.Persistence
 {
-    public class ProductRepo : IRepository<Product>
+    public class ProductRepo : IProductRepository
     {
         private readonly DiveDeepContext _context;
         public ProductRepo(DiveDeepContext context)

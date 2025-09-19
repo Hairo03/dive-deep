@@ -1,4 +1,4 @@
-﻿@model dive_deep.Models.Booking
+﻿@model dive_deep.Models.BookingItem
 
 @{
     ViewData["Title"] = "Lejning";
@@ -56,6 +56,7 @@
                             <form asp-controller="Booking" asp-action="Index" method="post" class="row g-3">
                                 <input type="hidden" asp-for="Id" />
                                 <input type="hidden" id="PricePerDay" value="@pricePerDay" />
+                                <input type="hidden" asp-for="ProductId" value="@Model.Product?.Id" />
 
                                 <div class="col-12">
                                     <small class="text-muted">Vælg start dato og slut dato</small>
@@ -96,6 +97,8 @@
                                 </div>
 
                                 <div class="col-12 d-grid">
+                                    
+                                    
                                     <button type="submit" class="btn btn-primary btn-lg">Tilføj til kurv</button>
                                 </div>
 
@@ -122,6 +125,7 @@
 
 @section Scripts {
     <script>
+
         document.addEventListener('DOMContentLoaded', function () {
             const startInput = document.getElementById("StartDate");
             const endInput = document.getElementById("EndDate");
