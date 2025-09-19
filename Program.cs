@@ -19,6 +19,7 @@ namespace dive_deep
 
             builder.Services.AddScoped<IRepository<Product>, ProductRepo>();
             builder.Services.AddScoped<IRepository<Package>, PackageRepo>();
+            builder.Services.AddScoped<IRepository<Booking>, BookingRepo>();
 
             var app = builder.Build();
 

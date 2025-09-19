@@ -42,15 +42,5 @@ namespace dive_deep.Persistence
             _context.Packages.Update(entity);
             _context.SaveChanges();
         }
-
-        public List<Package> GetProductsByCategory(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Package> SearchProducts(string? searchTerm)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

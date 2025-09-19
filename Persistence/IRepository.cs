@@ -9,7 +9,5 @@ namespace dive_deep.Persistence
         List<T> GetAll();
         T? GetById(int id);
         void Update(T entity);
-        List<T> GetProductsByCategory(int id);
-        List<T> SearchProducts(string? searchTerm);
     }
 }
