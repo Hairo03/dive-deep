@@ -3,6 +3,7 @@ using dive_deep.Models;
 using dive_deep.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
+using Microsoft.AspNetCore.Identity;
 
 namespace dive_deep
 {
@@ -19,13 +20,14 @@ namespace dive_deep
 
             builder.Services.AddScoped<IProductRepository, ProductRepo>();
             builder.Services.AddScoped<IRepository<Package>, PackageRepo>();
+            builder.Services.AddDefaultIdentity<ApplicationUser>().AddEntityFrameworkStores<DiveDeepContext>();
             builder.Services.AddScoped<IRepository<CartBooking>, CartBookingRepo>();
             builder.Services.AddSingleton<IBookingItemRepository, InMemoryBookingItemRepo>();
 
 
             var app = builder.Build();
 
-             using (var scope = app.Services.CreateScope())
+            using (var scope = app.Services.CreateScope())
             {
                 var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
                 try
@@ -55,6 +57,8 @@ namespace dive_deep
                 }
             }
 
+            app.MapRazorPages();
+
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
             {
@@ -68,6 +72,7 @@ namespace dive_deep
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(

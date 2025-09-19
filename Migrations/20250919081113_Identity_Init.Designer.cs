@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using dive_deep.Data;
 
@@ -11,9 +12,11 @@ using dive_deep.Data;
 namespace dive_deep.Migrations
 {
     [DbContext(typeof(DiveDeepContext))]
-    partial class DiveDeepContextModelSnapshot : ModelSnapshot
+    [Migration("20250919081113_Identity_Init")]
+    partial class Identity_Init
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -299,66 +302,6 @@ namespace dive_deep.Migrations
                     b.ToTable("Booking");
                 });
 
-            modelBuilder.Entity("dive_deep.Models.BookingItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("CartBookingId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("PackageId")
-                        .HasColumnType("int");
-
-                    b.Property<double>("PricePerDay")
-                        .HasColumnType("float");
-
-                    b.Property<int?>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<double>("TotalPrice")
-                        .HasColumnType("float");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CartBookingId");
-
-                    b.HasIndex("PackageId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("BookingItem");
-                });
-
-            modelBuilder.Entity("dive_deep.Models.CartBooking", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("CartBookings");
-                });
-
             modelBuilder.Entity("dive_deep.Models.Package", b =>
                 {
                     b.Property<int>("Id")
@@ -601,28 +544,34 @@ namespace dive_deep.Migrations
                         .HasConstraintName("FK_PackageProduct_Product_ProductId");
                 });
 
-            modelBuilder.Entity("dive_deep.Models.BookingItem", b =>
+            modelBuilder.Entity("dive_deep.Models.Booking", b =>
                 {
-                    b.HasOne("dive_deep.Models.CartBooking", null)
-                        .WithMany("BookingItems")
-                        .HasForeignKey("CartBookingId");
-
                     b.HasOne("dive_deep.Models.Package", "Package")
                         .WithMany()
-                        .HasForeignKey("PackageId");
+                        .HasForeignKey("PackageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("dive_deep.Models.Product", "Product")
                         .WithMany()
                         .HasForeignKey("ProductId");
 
+                    b.HasOne("dive_deep.Models.ApplicationUser", "User")
+                        .WithMany("Bookings")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Package");
 
                     b.Navigation("Product");
+
+                    b.Navigation("User");
                 });
 
-            modelBuilder.Entity("dive_deep.Models.CartBooking", b =>
+            modelBuilder.Entity("dive_deep.Models.ApplicationUser", b =>
                 {
-                    b.Navigation("BookingItems");
+                    b.Navigation("Bookings");
                 });
 #pragma warning restore 612, 618
         }

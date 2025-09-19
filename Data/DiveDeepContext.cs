@@ -1,9 +1,10 @@
 ﻿using dive_deep.Models;
 using dive_deep.Persistence;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 namespace dive_deep.Data
 {
-    public class DiveDeepContext : DbContext
+    public class DiveDeepContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Package> Packages { get; set; }
@@ -16,8 +17,7 @@ namespace dive_deep.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
-
+            base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Product>().HasData(
                 new Product
@@ -126,27 +126,31 @@ namespace dive_deep.Data
                 new Package { Id = 2, Name = "Snorkelsæt", PricePerDay = 300 }
             );
 
+            modelBuilder.Entity<Booking>()
+                .HasOne(b => b.User)
+                .WithMany(u => u.Bookings)
+                .HasForeignKey(b => b.UserId);
 
             modelBuilder.Entity<Package>()
-    .HasMany(p => p.products)      
-    .WithMany(p => p.packages)    
-    .UsingEntity<Dictionary<string, object>>(
-        "PackageProduct",      
-        right => right
-            .HasOne<Product>()
-            .WithMany()
-            .HasForeignKey("ProductId")
-            .HasConstraintName("FK_PackageProduct_Product_ProductId"),
-        left => left
-            .HasOne<Package>()
-            .WithMany()
-            .HasForeignKey("PackageId")
-            .HasConstraintName("FK_PackageProduct_Package_PackageId"),
-        join =>
+                .HasMany(p => p.products)
+                .WithMany(p => p.packages)
+                .UsingEntity<Dictionary<string, object>>(
+                "PackageProduct",
+            right => right
+                .HasOne<Product>()
+                .WithMany()
+                .HasForeignKey("ProductId")
+                .HasConstraintName("FK_PackageProduct_Product_ProductId"),
+            left => left
+                .HasOne<Package>()
+                .WithMany()
+                .HasForeignKey("PackageId")
+                .HasConstraintName("FK_PackageProduct_Package_PackageId"),
+            join =>
         {
             join.HasKey("PackageId", "ProductId");
 
-    
+
             join.HasData(
                 new { PackageId = 1, ProductId = 1 },
                 new { PackageId = 1, ProductId = 2 },
