@@ -7,13 +7,17 @@ namespace dive_deep.Data
     {
         public DbSet<Product> Products { get; set; }
         public DbSet<Package> Packages { get; set; }
+        public DbSet<CartBooking> CartBookings { get; set; }
 
         public DiveDeepContext(DbContextOptions options) : base(options)
         {
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
+
 
             modelBuilder.Entity<Product>().HasData(
                 new Product

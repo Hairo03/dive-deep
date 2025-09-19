@@ -7,10 +7,10 @@ namespace dive_deep.Controllers
 {
     public class ProductsController : Controller
     {
-        private readonly IRepository<Product> _productRepository;
+        private readonly IProductRepository _productRepository;
         private readonly IRepository<Package> _packageRepository;
 
-        public ProductsController(IRepository<Product> productRepository, IRepository<Package> packageRepository)
+        public ProductsController(IProductRepository productRepository, IRepository<Package> packageRepository)
         {
             _productRepository = productRepository;
             _packageRepository = packageRepository;
