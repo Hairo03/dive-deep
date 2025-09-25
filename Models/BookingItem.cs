@@ -39,6 +39,17 @@ namespace dive_deep.Models
             return TotalPrice;
         }
 
+        public int CalculateDays()
+        {
+            int days = (EndDate.Date - StartDate.Date).Days;
+
+            if (days == 0) return 1;
+            else
+            {
+                return days;
+            }
+        }
+
         [Required]
         public string UserId { get; set; }
 

@@ -1,5 +1,13 @@
-﻿@model CartBooking
+﻿@model List<BookingItem>
 
+@{
+    double FullPrice = 0;
+
+    foreach(var item in Model)
+    {
+        FullPrice += item.TotalPrice;
+    }
+}
 <section class="h-100 h-custom" style="background: linear-gradient(to right, #0f2027, #203a43, #2c5364);">
     <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-100">
@@ -21,96 +29,33 @@
                                 <div class="d-flex justify-content-between align-items-center mb-4">
                                     <div>
                                         <p class="mb-1">Indkøbskurv</p>
-                                        <p class="mb-0">Du har 4 ting i kurven</p>
-                                    </div>
-                                    <div>
-                                        <p class="mb-0">
-                                            <span class="text-muted">Sorter efter:</span>
-                                            <a href="#!" class="text-body">Pris <i class="fas fa-angle-down mt-1"></i></a>
-                                        </p>
+                                        <p class="mb-0">Du har @Model.Count ting i kurven</p>
                                     </div>
                                 </div>
 
                                 <!-- Kurv-elementer -->
-                                <div class="card mb-3" style="background-color: white;">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="d-flex flex-row align-items-center">
-                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp"
-                                                     class="img-fluid rounded-3" alt="Dykkermaske" style="width: 65px;">
-                                                <div class="ms-3">
-                                                    <h5>Dykkermaske</h5>
-                                                    <p class="small mb-0">Navy Blue</p>
+                                @foreach(var item in Model)
+                                {
+                                    <div class="card mb-3" style="background-color: white;">
+                                        <div class="card-body">
+                                            <div class="d-flex justify-content-between">
+                                                <div class="d-flex flex-row align-items-center">
+                                                    <img src="https://images.unsplash.com/photo-1669937401489-fb1ebb31d762?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHwxNXx8aGVhZHBob25lfGVufDB8MHx8fDE3MzA1NTUzNjl8MA&ixlib=rb-4.0.3&q=80&w=1080"
+                                                         class="img-fluid rounded-3" alt="placeholder image" style="width: 65px;">
+                                                    <div class="ms-3">
+                                                        <h5>@item.Name</h5> 
+                                                        <p class="small mb-0">@item.Product.Brand</p>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="d-flex flex-row align-items-center">
-                                                <div style="width: 50px;"><h5 class="fw-normal mb-0">2</h5></div>
-                                                <div style="width: 80px;"><h5 class="mb-0">300 dkk</h5></div>
-                                                <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
+                                                <div class="d-flex flex-row align-items-center">
+                                                    <div style="width: 50px;"><h5 class="fw-normal mb-0">@item.CalculateDays()</h5></div>
+                                                    <div style="width: 80px;"><h5 class="mb-0">@item.TotalPrice dkk</h5></div>
+                                                    <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="card mb-3" style="background-color: white;">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="d-flex flex-row align-items-center">
-                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img2.webp"
-                                                     class="img-fluid rounded-3" alt="Gas tank" style="width: 65px;">
-                                                <div class="ms-3">
-                                                    <h5>Gas tank</h5>
-                                                    <p class="small mb-0">Navy Blue</p>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex flex-row align-items-center">
-                                                <div style="width: 50px;"><h5 class="fw-normal mb-0">2</h5></div>
-                                                <div style="width: 80px;"><h5 class="mb-0">900 dkk</h5></div>
-                                                <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="card mb-3" style="background-color: white;">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="d-flex flex-row align-items-center">
-                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img3.webp"
-                                                     class="img-fluid rounded-3" alt="Snorkel" style="width: 65px;">
-                                                <div class="ms-3">
-                                                    <h5>Snorkel</h5>
-                                                    <p class="small mb-0">Onyx Black</p>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex flex-row align-items-center">
-                                                <div style="width: 50px;"><h5 class="fw-normal mb-0">1</h5></div>
-                                                <div style="width: 80px;"><h5 class="mb-0">500 dkk</h5></div>
-                                                <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="card mb-3 mb-lg-0" style="background-color: white;">
-                                    <div class="card-body">
-                                        <div class="d-flex justify-content-between">
-                                            <div class="d-flex flex-row align-items-center">
-                                                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img4.webp"
-                                                     class="img-fluid rounded-3" alt="MacBook Pro" style="width: 65px;">
-                                                <div class="ms-3">
-                                                    <h5>MacBook Pro</h5>
-                                                    <p class="small mb-0">1TB, Graphite</p>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex flex-row align-items-center">
-                                                <div style="width: 50px;"><h5 class="fw-normal mb-0">1</h5></div>
-                                                <div style="width: 80px;"><h5 class="mb-0">1799 dkk</h5></div>
-                                                <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                }
 
                             </div>
 
@@ -163,7 +108,7 @@
 
                                         <div class="d-flex justify-content-between">
                                             <p class="mb-2">Subtotal</p>
-                                            <p class="mb-2">4798 dkk</p>
+                                            <p class="mb-2">@FullPrice dkk</p>
                                         </div>
 
                                         <div class="d-flex justify-content-between">
@@ -172,12 +117,12 @@
 
                                         <div class="d-flex justify-content-between mb-4">
                                             <p class="mb-2">Total (inkl. moms)</p>
-                                            <p class="mb-2">2000 dkk</p>
+                                            <p class="mb-2">@FullPrice dkk</p>
                                         </div>
 
                                         <button id="checkoutBtn" type="button" class="btn w-100 btn-lg" style="background-color: #2c5364; color: white;">
                                             <div class="d-flex justify-content-between">
-                                                <span>2000 dkk</span>
+                                                <span>@FullPrice dkk</span>
                                                 <span>Betal <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
                                             </div>
                                         </button>
