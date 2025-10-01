@@ -15,6 +15,8 @@ namespace dive_deep
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddHttpClient();
+
 
             builder.Services.AddDbContext<DiveDeepContext>(options => { options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); });
 
@@ -81,5 +83,6 @@ namespace dive_deep
 
             app.Run();
         }
+
     }
 }
