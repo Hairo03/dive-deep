@@ -119,13 +119,15 @@
                                             <p class="mb-2">Total (inkl. moms)</p>
                                             <p class="mb-2">@FullPrice dkk</p>
                                         </div>
+                                        <form asp-controller="" asp-action="">
+                                            <button id="checkoutBtn" type="submit" class="btn w-100 btn-lg" style="background-color: #2c5364; color: white;">
+                                                <div class="d-flex justify-content-between">
+                                                    <span>@FullPrice dkk</span>
+                                                    <span>Betal <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
+                                                </div>
+                                            </button>
+                                        </form>
 
-                                        <button id="checkoutBtn" type="button" class="btn w-100 btn-lg" style="background-color: #2c5364; color: white;">
-                                            <div class="d-flex justify-content-between">
-                                                <span>@FullPrice dkk</span>
-                                                <span>Betal <i class="fas fa-long-arrow-alt-right ms-2"></i></span>
-                                            </div>
-                                        </button>
 
 
                                           <!-- Handelsbetingelser -->

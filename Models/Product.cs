@@ -26,6 +26,7 @@ namespace dive_deep.Models
         public string Gender { get; set; }
         public Category CategoryType { get; set; }
 
+
         public ICollection<Package> packages { get; set; } = new List<Package>();
 
     }

@@ -19,6 +19,12 @@ namespace dive_deep.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.Entity<CartBooking>()
+    .HasMany(cb => cb.BookingItems)
+    .WithOne(bi => bi.CartBooking)
+    .HasForeignKey(bi => bi.CartBookingId)
+    .OnDelete(DeleteBehavior.Cascade);
+
             modelBuilder.Entity<Product>().HasData(
                 new Product
                 {

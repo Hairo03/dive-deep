@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using dive_deep.Data;
 
@@ -11,9 +12,11 @@ using dive_deep.Data;
 namespace dive_deep.Migrations
 {
     [DbContext(typeof(DiveDeepContext))]
-    partial class DiveDeepContextModelSnapshot : ModelSnapshot
+    [Migration("20251001081400_initDbCart")]
+    partial class initDbCart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -269,7 +272,7 @@ namespace dive_deep.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CartBookingId")
+                    b.Property<int?>("CartBookingId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("EndDate")
@@ -319,12 +322,7 @@ namespace dive_deep.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("CartBookings");
                 });
@@ -573,11 +571,9 @@ namespace dive_deep.Migrations
 
             modelBuilder.Entity("dive_deep.Models.BookingItem", b =>
                 {
-                    b.HasOne("dive_deep.Models.CartBooking", "CartBooking")
+                    b.HasOne("dive_deep.Models.CartBooking", null)
                         .WithMany("BookingItems")
-                        .HasForeignKey("CartBookingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CartBookingId");
 
                     b.HasOne("dive_deep.Models.Package", "Package")
                         .WithMany()
@@ -593,20 +589,9 @@ namespace dive_deep.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CartBooking");
-
                     b.Navigation("Package");
 
                     b.Navigation("Product");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("dive_deep.Models.CartBooking", b =>
-                {
-                    b.HasOne("dive_deep.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
 
                     b.Navigation("User");
                 });

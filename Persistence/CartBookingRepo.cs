@@ -7,8 +7,11 @@ namespace dive_deep.Persistence
     public class CartBookingRepo : IRepository<CartBooking>
     {
         private DiveDeepContext _context { get; set; }
-        public CartBookingRepo(DiveDeepContext context) {
+        public CartBookingRepo(DiveDeepContext context) 
+        {
+
             _context = context;
+
         }
         public void Add(CartBooking cartBooking)
         {

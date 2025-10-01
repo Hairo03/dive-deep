@@ -19,6 +19,9 @@ namespace dive_deep.Models
         public Package Package { get; set; }
         public Product? Product { get; set; }
 
+        public int CartBookingId { get; set; }
+        public CartBooking CartBooking { get; set; }
+
         public BookingItem()
         {
             StartDate = DateTime.Now;

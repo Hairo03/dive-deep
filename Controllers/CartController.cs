@@ -7,6 +7,7 @@ namespace dive_deep.Controllers
 	public class CartController : Controller
 	{
 		private readonly IBookingItemRepository _bookingItemRepository;
+		private readonly IRepository<CartBooking> _cartBookingRepository;
 		List<BookingItem> Items { get; set; }
 
 		public CartController(IBookingItemRepository bookingItemRepository)
@@ -17,6 +18,16 @@ namespace dive_deep.Controllers
 		{
 			Items = _bookingItemRepository.GetAll();
 			return View(Items);
+		}
+
+		[HttpPost]
+		public IActionResult Post()
+		{
+		    CartBooking booking = new CartBooking();
+			booking.BookingItems = _bookingItemRepository.GetAll();
+			_cartBookingRepository.Add(booking);
+
+			return RedirectToAction("Index");
 		}
 	}
 }
