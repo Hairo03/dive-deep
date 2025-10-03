@@ -36,7 +36,7 @@ public class WeatherController : Controller
 
         // 2) Marine API kald (bølgehøjde)
         var marineUrl = string.Format(System.Globalization.CultureInfo.InvariantCulture,
-             "https://api.open-meteo.com/v1/forecast?latitude={0}&longitude={1}&hourly=temperature_2m,wind_speed_10m,precipitation,weather_code&timezone=auto",
+             "https://marine-api.open-meteo.com/v1/marine?latitude={0}&longitude={1}&hourly=wave_height",
              lat, lon);
         var marineJson = await client.GetStringAsync(marineUrl);
         var marineDoc = JsonDocument.Parse(marineJson);
@@ -44,18 +44,14 @@ public class WeatherController : Controller
         var marineHourly = marineDoc.RootElement.GetProperty("hourly");
         double waves = marineHourly.GetProperty("wave_height")[idx].GetDouble();
 
-        // Saml i viewmodel
         var model = new DiveConditionsViewModel
         {
             WindSpeed = wind,
             Precipitation = rain,
             Thunder = thunder,
             WaveHeight = waves,
-            // Vandtemperatur: du kunne hente “sea_surface_temperature” via marine API også,
-            // hvis du tilføjer det som variabel i marine-URL (fx &hourly=wave_height,sea_surface_temperature).
         };
 
-        // Vurdering (som før)
         bool suitable = true;
         var msgs = new List<string>();
 

@@ -4,6 +4,7 @@ using dive_deep.Persistence;
 using Microsoft.EntityFrameworkCore;
 using System;
 using Microsoft.AspNetCore.Identity;
+using System.Globalization;
 
 namespace dive_deep
 {
@@ -17,7 +18,6 @@ namespace dive_deep
             builder.Services.AddControllersWithViews();
             builder.Services.AddHttpClient();
 
-
             builder.Services.AddDbContext<DiveDeepContext>(options => { options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); });
 
             builder.Services.AddScoped<IProductRepository, ProductRepo>();
@@ -26,6 +26,9 @@ namespace dive_deep
             builder.Services.AddScoped<IRepository<CartBooking>, CartBookingRepo>();
             builder.Services.AddSingleton<IBookingItemRepository, InMemoryBookingItemRepo>();
 
+            var defaultCulture = CultureInfo.InvariantCulture;
+            CultureInfo.DefaultThreadCurrentCulture = defaultCulture;
+            CultureInfo.DefaultThreadCurrentUICulture = defaultCulture;
 
             var app = builder.Build();
 
