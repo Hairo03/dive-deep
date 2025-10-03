@@ -9,6 +9,8 @@ namespace dive_deep.Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Package> Packages { get; set; }
         public DbSet<CartBooking> CartBookings { get; set; }
+        public DbSet<BookingItem> BookingItems { get; set; }
+
 
         public DiveDeepContext(DbContextOptions options) : base(options)
         {
@@ -20,10 +22,10 @@ namespace dive_deep.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<CartBooking>()
-    .HasMany(cb => cb.BookingItems)
-    .WithOne(bi => bi.CartBooking)
-    .HasForeignKey(bi => bi.CartBookingId)
-    .OnDelete(DeleteBehavior.Cascade);
+        .HasMany(cb => cb.BookingItems)
+        .WithOne(bi => bi.CartBooking)
+        .HasForeignKey(bi => bi.CartBookingId)
+         .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Product>().HasData(
                 new Product
@@ -137,7 +139,26 @@ namespace dive_deep.Data
                 .WithMany(u => u.Bookings)
                 .HasForeignKey(b => b.UserId);
 
-            modelBuilder.Entity<Package>()
+            modelBuilder.Entity<CartBooking>()
+    .HasMany(p => p.BookingItems)
+    .WithMany(p => p.CartBooking)
+    .UsingEntity<Dictionary<string, object>>(
+    "PackageProduct",
+right => right
+    .HasOne<Product>()
+    .WithMany()
+    .HasForeignKey("ProductId")
+    .HasConstraintName("FK_PackageProduct_Product_ProductId"),
+left => left
+    .HasOne<Package>()
+    .WithMany()
+    .HasForeignKey("PackageId")
+    .HasConstraintName("FK_PackageProduct_Package_PackageId"),
+join =>
+{
+    join.HasKey("PackageId", "ProductId");
+
+    modelBuilder.Entity<Package>()
                 .HasMany(p => p.products)
                 .WithMany(p => p.packages)
                 .UsingEntity<Dictionary<string, object>>(
