@@ -35,7 +35,9 @@ public class WeatherController : Controller
         bool thunder = (weatherCode == 95 || weatherCode == 96 || weatherCode == 99);
 
         // 2) Marine API kald (bølgehøjde)
-        string marineUrl = $"https://marine-api.open-meteo.com/v1/marine?latitude={lat}&longitude={lon}&hourly=wave_height,sea_surface_temperature&timezone=auto";
+        var marineUrl = string.Format(System.Globalization.CultureInfo.InvariantCulture,
+             "https://api.open-meteo.com/v1/forecast?latitude={0}&longitude={1}&hourly=temperature_2m,wind_speed_10m,precipitation,weather_code&timezone=auto",
+             lat, lon);
         var marineJson = await client.GetStringAsync(marineUrl);
         var marineDoc = JsonDocument.Parse(marineJson);
 
