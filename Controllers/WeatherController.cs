@@ -16,7 +16,9 @@ public class WeatherController : Controller
         var client = _httpClientFactory.CreateClient();
 
         // 1) Weather API kald (vind, nedbør, etc.)
-        string weatherUrl = $"https://api.open-meteo.com/v1/forecast?latitude={lat}&longitude={lon}&hourly=temperature_2m,wind_speed_10m,precipitation,weather_code&timezone=auto";
+        string weatherUrl = string.Format(System.Globalization.CultureInfo.InvariantCulture,
+            "https://api.open-meteo.com/v1/forecast?latitude={0}&longitude={1}&hourly=temperature_2m,wind_speed_10m,precipitation,weather_code&timezone=auto",
+            lat, lon);
         var weatherJson = await client.GetStringAsync(weatherUrl);
         var weatherDoc = JsonDocument.Parse(weatherJson);
 
