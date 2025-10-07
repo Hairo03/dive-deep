@@ -2,11 +2,9 @@
 
 <h2>Dykkerforhold</h2>
 
-<form method="get">
-    <label>Latitude:</label>
-    <input type="text" name="lat" value="55.6761" />
-    <label>Longitude:</label>
-    <input type="text" name="lon" value="12.5683" />
+<form method="post">
+    <label>By:</label>
+    <input type="text" name="by"/>
     <button type="submit">Tjek</button>
 </form>
 
@@ -16,20 +14,5 @@
         <p><strong>Vind:</strong> @Model.WindSpeed m/s</p>
         <p><strong>Bølger:</strong> @Model.WaveHeight m</p>
         <p><strong>Nedbør:</strong> @Model.Precipitation mm/t</p>
-        <p><strong>Torden:</strong> @(Model.Thunder ? "Ja" : "Nej")</p>
-        <p><strong>Vandtemp:</strong> @Model.WaterTemperature °C</p>
-        <p><strong>Egnet:</strong> @(Model.Suitable ? "Ja" : "Nej")</p>
-
-        @if (!Model.Suitable)
-        {
-            <ul>
-                @foreach (var msg in Model.Messages)
-                {
-                    <li>@msg</li>
-                }
-            </ul>
-        }
-
-        <p><strong>Dragtanbefaling:</strong> @Model.SuitRecommendation</p>
     </div>
 }

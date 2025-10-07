@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using Microsoft.AspNetCore.Identity;
 using System.Globalization;
+using dive_deep.Services;
 
 namespace dive_deep
 {
@@ -16,7 +17,18 @@ namespace dive_deep
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddHttpClient();
+            builder.Services.AddHttpClient("OpenMeteoMarine", (httpClient) =>
+            {
+                httpClient.BaseAddress = new Uri("https://marine-api.open-meteo.com/v1/");
+            });
+            builder.Services.AddHttpClient("OpenMeteoGeo", (httpClient) =>
+            {
+                httpClient.BaseAddress = new Uri("https://geocoding-api.open-meteo.com/v1/");
+            });
+            builder.Services.AddHttpClient("OpenMeteoWeather", (httpClient) =>
+            {
+                httpClient.BaseAddress = new Uri("https://api.open-meteo.com/v1/");
+            });
 
             builder.Services.AddDbContext<DiveDeepContext>(options => { options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")); });
 
@@ -25,6 +37,7 @@ namespace dive_deep
             builder.Services.AddDefaultIdentity<ApplicationUser>().AddEntityFrameworkStores<DiveDeepContext>();
             builder.Services.AddScoped<IRepository<CartBooking>, CartBookingRepo>();
             builder.Services.AddSingleton<IBookingItemRepository, InMemoryBookingItemRepo>();
+            builder.Services.AddScoped<IWeatherService, WeatherService>();
 
             var defaultCulture = CultureInfo.InvariantCulture;
             CultureInfo.DefaultThreadCurrentCulture = defaultCulture;

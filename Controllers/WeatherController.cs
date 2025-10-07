@@ -1,77 +1,29 @@
 ﻿using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
 using dive_deep.Models;
+using System.Transactions;
+using Microsoft.Build.Framework;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using dive_deep.Services;
 
 public class WeatherController : Controller
 {
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IWeatherService weatherService;
 
-    public WeatherController(IHttpClientFactory httpClientFactory)
+    public WeatherController(IWeatherService weatherService)
     {
-        _httpClientFactory = httpClientFactory;
+        this.weatherService = weatherService;
     }
 
-    public async Task<IActionResult> Index(double lat = 55.6761, double lon = 12.5683)
+    [HttpPost]
+    public async Task<IActionResult> Index(string name)
     {
-        var client = _httpClientFactory.CreateClient();
-
-        // 1) Weather API kald (vind, nedbør, etc.)
-        string weatherUrl = string.Format(System.Globalization.CultureInfo.InvariantCulture,
-            "https://api.open-meteo.com/v1/forecast?latitude={0}&longitude={1}&hourly=temperature_2m,wind_speed_10m,precipitation,weather_code&timezone=auto",
-            lat, lon);
-        var weatherJson = await client.GetStringAsync(weatherUrl);
-        var weatherDoc = JsonDocument.Parse(weatherJson);
-
-        var weatherHourly = weatherDoc.RootElement.GetProperty("hourly");
-        // Find index nærmest nu — her bare brug index 0 som eksempel
-        int idx = 0;
-
-        double wind = weatherHourly.GetProperty("wind_speed_10m")[idx].GetDouble();
-        double rain = weatherHourly.GetProperty("precipitation")[idx].GetDouble();
-        int weatherCode = weatherHourly.GetProperty("weather_code")[idx].GetInt32();
-        double airTemp = weatherHourly.GetProperty("temperature_2m")[idx].GetDouble();
-
-        // Simpel tordencheck via weather_code (eksempelværdier)
-        bool thunder = (weatherCode == 95 || weatherCode == 96 || weatherCode == 99);
-
-        // 2) Marine API kald (bølgehøjde)
-        var marineUrl = string.Format(System.Globalization.CultureInfo.InvariantCulture,
-             "https://marine-api.open-meteo.com/v1/marine?latitude={0}&longitude={1}&hourly=wave_height",
-             lat, lon);
-        var marineJson = await client.GetStringAsync(marineUrl);
-        var marineDoc = JsonDocument.Parse(marineJson);
-
-        var marineHourly = marineDoc.RootElement.GetProperty("hourly");
-        double waves = marineHourly.GetProperty("wave_height")[idx].GetDouble();
-
-        var model = new DiveConditionsViewModel
-        {
-            WindSpeed = wind,
-            Precipitation = rain,
-            Thunder = thunder,
-            WaveHeight = waves,
-        };
-
-        bool suitable = true;
-        var msgs = new List<string>();
-
-        if (wind >= 8) { suitable = false; msgs.Add($"Vind for høj: {wind} m/s"); }
-        if (waves >= 1.5) { suitable = false; msgs.Add($"For høje bølger: {waves} m"); }
-        if (rain >= 2) { suitable = false; msgs.Add($"For meget regn: {rain} mm/t"); }
-        if (thunder) { suitable = false; msgs.Add("⚠️ Risiko for torden – dykning frarådes"); }
-
-        model.Suitable = suitable;
-        model.Messages = msgs;
-
-        // Dragtanbefaling – hvis du har vandtemperatur (her bruger vi lufttemperatur som placeholder)
-        double tempForDragt = airTemp;
-        if (tempForDragt > 24) model.SuitRecommendation = "Våddragt (3mm)";
-        else if (tempForDragt >= 18) model.SuitRecommendation = "Våddragt (5mm)";
-        else if (tempForDragt >= 10) model.SuitRecommendation = "Våddragt (7mm)";
-        else model.SuitRecommendation = "Tørdragt";
-
+        DiveConditionsViewModel model = await weatherService.GetConditions(name);
         return View(model);
     }
+
+    public ViewResult Index()
+    {
+        return View();
+    }
 }
-
-
