@@ -22,6 +22,7 @@ public class WeatherController : Controller
         return View(model);
     }
 
+    [HttpGet]
     public ViewResult Index()
     {
         return View();

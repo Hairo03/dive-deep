@@ -2,9 +2,9 @@
 
 <h2>Dykkerforhold</h2>
 
-<form method="post">
+<form asp-controller="weather" asp-action="index" method="post">
     <label>By:</label>
-    <input type="text" name="by"/>
+    <input type="text" name="name" placeholder="Enter city name" />
     <button type="submit">Tjek</button>
 </form>
 
@@ -14,5 +14,6 @@
         <p><strong>Vind:</strong> @Model.WindSpeed m/s</p>
         <p><strong>Bølger:</strong> @Model.WaveHeight m</p>
         <p><strong>Nedbør:</strong> @Model.Precipitation mm/t</p>
+        <p><strong>Torden:</strong> @(Model.Thunder ? "Ja" : "Nej")</p>
     </div>
 }

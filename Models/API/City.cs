@@ -1,8 +1,8 @@
-﻿namespace dive_deep.Models
+﻿namespace dive_deep.Models.API
 {
-    public class CityResponse
+    public class City
     {
-        public string Name {  get; set; }
+        public string Name { get; set; }
         public double Latitude { get; set; }
         public double Longitude { get; set; }
     }

@@ -1,4 +1,6 @@
 ﻿using dive_deep.Models;
+using dive_deep.Models.API;
+using dive_deep.Models.API.Response;
 
 namespace dive_deep.Services
 {
@@ -17,13 +19,34 @@ namespace dive_deep.Services
             using var geoHttpClient = httpClientFactory.CreateClient("OpenMeteoGeo");
             using var marineHttpClient = httpClientFactory.CreateClient("OpenMeteoMarine");
 
-            var name = await geoHttpClient.GetAsync($"search?name={ cityName }&count=10&language=en&format=json");
-            CityResponse city = await name.Content.ReadFromJsonAsync<CityResponse>();
 
-            WeatherResponse weather = await weatherHttpClient.GetFromJsonAsync<WeatherResponse>($"forecast?latitude={city.Latitude}&longitude={city.Longitude}&hourly=wind_speed_10m,weather_code,precipitation");
-            MarineResponse marine = await marineHttpClient.GetFromJsonAsync<MarineResponse>($"marine?latitude={city.Latitude}&longitude={city.Longitude}&hourly=wave_height");
+            CityResponse? cityResponse = await geoHttpClient.GetFromJsonAsync<CityResponse>($"search?name={cityName}&count=10&language=en&format=json"); 
+            if (cityResponse == null || cityResponse.Results == null)
+            {
+                throw new Exception("City response is null");
+            }
+            City city = cityResponse.Results[0];
 
-            return new DiveConditionsViewModel(weather.Hourly[0].WindSpeed10M, marine.WaveHeight, weather.Hourly[0].Precipation, weather.Hourly[0].WeatherCode);
+            WeatherResponse? weatherResponse = await weatherHttpClient.GetFromJsonAsync<WeatherResponse>($"forecast?latitude={city.Latitude}&longitude={city.Longitude}&hourly=wind_speed_10m,weather_code,precipitation");
+            if (weatherResponse == null || weatherResponse.Hourly == null)
+            {
+                throw new Exception("Weather response is null");
+            }
+            Weather weather = weatherResponse.Hourly;
+
+            MarineResponse? marineResponse = await marineHttpClient.GetFromJsonAsync<MarineResponse>($"marine?latitude={city.Latitude}&longitude={city.Longitude}&hourly=wave_height");
+            if (marineResponse == null || marineResponse.Hourly == null || marineResponse.Hourly.Wave_Height == null)
+            {
+                throw new Exception("Marine response is null");
+            }
+            Marine marine = marineResponse.Hourly;
+
+            double windSpeed = weather.Wind_Speed_10M[0];
+            double waveHeight = marine.Wave_Height[0] ?? 0.0;
+            double precipitation = weather.Precipitation[0];
+            int weatherCode = weather.Weather_Code[0];
+
+            return new DiveConditionsViewModel(windSpeed, waveHeight, precipitation, weatherCode);
         }
     }
 }
